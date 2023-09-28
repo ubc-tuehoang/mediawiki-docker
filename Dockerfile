@@ -131,4 +131,3 @@ ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apachectl", "-e", "info", "-D", "FOREGROUND"]
 
 
-## Testingg
