@@ -127,7 +127,7 @@ VOLUME /data
 
 EXPOSE 80
 
-# TueH
+# TueHoang check build 29Sep2023
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apachectl", "-e", "info", "-D", "FOREGROUND"]
