@@ -68,7 +68,7 @@ RUN curl -L https://getcomposer.org/installer | php \
     && php composer.phar install --no-dev
 
 RUN EXTS=`curl https://extdist.wmflabs.org/dist/extensions/ | awk 'BEGIN { FS = "\""  } ; {print $2}'` \
-    && for i in VisualEditor Scribunto LiquidThreads Cite WikiEditor LDAPProvider PluggableAuth LDAPAuthentication2 ParserFunctions TemplateData InputBox Widgets Variables RightFunctions PageInCat CategoryTree LabeledSectionTransclusion UserPageEditProtection Quiz Collection DeleteBatch LinkTarget HitCounters Math 3D MultimediaViewer TimedMediaHandler; do \
+    && for i in VisualEditor Scribunto Cite WikiEditor LDAPProvider PluggableAuth LDAPAuthentication2 ParserFunctions TemplateData InputBox Widgets Variables RightFunctions PageInCat CategoryTree LabeledSectionTransclusion UserPageEditProtection Quiz Collection DeleteBatch LinkTarget HitCounters Math 3D MultimediaViewer TimedMediaHandler; do \
       FILENAME=`echo "$EXTS" | grep ^${i}-REL${WIKI_VERSION_STR}`; \
       echo "Installing https://extdist.wmflabs.org/dist/extensions/$FILENAME"; \
       curl -Ls https://extdist.wmflabs.org/dist/extensions/$FILENAME | tar xz -C /var/www/html/extensions; \
@@ -103,7 +103,13 @@ RUN EXTS=`curl https://extdist.wmflabs.org/dist/extensions/ | awk 'BEGIN { FS = 
     && echo "Installing SmiteSpam https://github.com/wikimedia/mediawiki-extensions-SmiteSpam/archive/REL1_40.zip" \
     && curl -L -o smitespam.zip https://github.com/wikimedia/mediawiki-extensions-SmiteSpam/archive/REL1_40.zip \
     && unzip smitespam.zip -d /var/www/html/extensions/ \
-    && mv /var/www/html/extensions/mediawiki-extensions-SmiteSpam-REL1_40 /var/www/html/extensions/SmiteSpam  
+    && mv /var/www/html/extensions/mediawiki-extensions-SmiteSpam-REL1_40 /var/www/html/extensions/SmiteSpam \ 
+    && echo "Installing LiquidThreads https://github.com/ubc-tuehoang/mediawiki-extensions-LiquidThreads/archive/refs/heads/v1.39.0-wmf.28.zip" \
+    && curl -L -o liquidthreads.zip https://github.com/ubc-tuehoang/mediawiki-extensions-LiquidThreads/archive/refs/heads/v1.39.0-wmf.28.zip \
+    && unzip liquidthreads.zip -d /var/www/html/extensions/ \
+    && mv /var/www/html/extensions/mediawiki-extensions-LiquidThreads-1.39.0-wmf.28 /var/www/html/extensions/LiquidThreads  
+
+
     #&& echo "Installing patched Math extension from https://github.com/ubc/mediawiki-extensions-Math/archive/REL1_35.tar.gz" \
     #&& mkdir -p /var/www/html/extensions/Math \
     #&& curl -Ls https://github.com/ubc/mediawiki-extensions-Math/archive/REL1_35.tar.gz | tar xz --strip=1 -C /var/www/html/extensions/Math
